@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<!-- bodhini@jain-->
+<!-- GAZEBO ADDITIONAL DESCRIPTION -->
+<robot>
+<gazebo reference="body_link">
+<mu1>0.2</mu1>
+<mu2>0.2</mu2>
+<material>Gazebo/Red</material>
+</gazebo>
+<gazebo reference="wheel1_link">
+<mu1>1.0</mu1>
+<mu2>1.0</mu2>
+<material>Gazebo/Green</material>
+</gazebo>
+<gazebo reference="wheel2_link">
+<mu1>1.0</mu1>
+<mu2>1.0</mu2>
+<material>Gazebo/Green</material>
+</gazebo>
+<gazebo reference="caster_link">
+<mu1>0.01</mu1>
+<mu2>0.01</mu2>
+<material>Gazebo/Blue</material>
+</gazebo>
+<!-- LIDAR GAZEBO SENSOR AND PLUGIN -->
+<gazebo reference="lidar_link">
+    <sensor name="lidar_sensor" type="ray">
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>false</visualize>
+        <update_rate>40</update_rate>
+        <ray>
+            <scan>
+                <horizontal>
+                    <samples>720</samples>
+                    <resolution>1</resolution>
+                    <min_angle>-3.14159</min_angle>
+                    <max_angle>3.14159</max_angle>
+                </horizontal>
+                <vertical>
+                    <samples>1</samples>
+                    <resolution>1</resolution>
+                    <min_angle>0</min_angle>
+                    <max_angle>0</max_angle>
+                </vertical>
+            </scan>
+            <range>
+                <min>0.08</min>
+                <max>30</max>
+                <resolution>0.05</resolution>
+            </range>
+            <noise>
+                <type>gaussian</type>
+                <mean>0.0</mean>
+                <stddev>0.01</stddev>
+            </noise>
+        </ray>
+        <plugin name="lidar_plugin" filename="libgazebo_ros_ray_sensor.so">
+            <ros>
+                <namespace></namespace>
+                <remapping>~/out:=scan</remapping>
+            </ros>
+            <output_type>sensor_msgs/LaserScan</output_type>
+            <frame_name>lidar_link</frame_name>
+        </plugin>
+    </sensor>
+</gazebo>
+<gazebo reference="camera_link">
+  <light type="spot" name="camera_spotlight">
+
+    <pose>0 0 0 0 0 0</pose>
+
+    <diffuse>2 2 2 2</diffuse>
+    <specular>0.2 0.2 0.2 1</specular>
+
+    <attenuation>
+      <range>15</range>
+      <constant>0.53</constant>
+      <linear>0.015</linear>
+      <quadratic>0.0015</quadratic>
+    </attenuation>
+
+    <direction>1 0 0</direction>
+
+    <spot>
+      <inner_angle>0.45</inner_angle>
+      <outer_angle>0.9</outer_angle>
+      <falloff>1.2</falloff>
+    </spot>
+
+  </light>
+    <sensor name="camera" type="camera">
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>true</visualize>
+        <update_rate>30</update_rate>
+        <camera>
+            <horizontal_fov>0.80</horizontal_fov>
+            <image>
+                <width>640</width>
+                <height>480</height>
+                <format>R8G8B8</format>
+            </image>
+            <clip>
+                <near>0.1</near>
+                <far>100</far>
+            </clip>
+        </camera>
+        <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+            <ros>
+                <namespace></namespace>
+                <remapping>~/image_raw:=camera/image_raw</remapping>
+                <remapping>~/camera_info:=camera/camera_info</remapping>
+            </ros>
+            <frame_name>camera_link</frame_name>
+        </plugin>
+    </sensor>
+</gazebo>
+<!-- CONTROLLER -->
+<gazebo>
+<plugin name='diff_drive' filename='libgazebo_ros_diff_drive.so'>
+	<ros>
+	  <namespace></namespace>
+	</ros>
+	
+	<num_wheel_pairs>1</num_wheel_pairs>
+	
+	<!-- wheels0-->
+	<left_joint>wheel2_joint</left_joint>
+	<right_joint>wheel1_joint</right_joint>
+	<wheel_separation>${body_link_y_dim+wheel_link_length}</wheel_separation>
+	<wheel_diameter>${2*wheel_link_radius}</wheel_diameter>
+	
+	<!-- limits-->
+	<max_wheel_torque>1000</max_wheel_torque>
+	<max_wheel_acceleration>5.0</max_wheel_acceleration>
+	
+	<publish_odom>true</publish_odom>
+	<publish_odom_tf>true</publish_odom_tf>
+	<publish_wheel_tf>true</publish_wheel_tf>
+	
+	<odometry_frame>odom</odometry_frame>
+	<robot_base_frame>dummy</robot_base_frame>
+	
+      </plugin>
+</gazebo>
+</robot>

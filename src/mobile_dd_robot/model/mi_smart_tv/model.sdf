@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <model name="mi_smart_tv">
+    <static>true</static>
+    <link name="tv_link">
+      <collision>
+        <geometry>
+          <mesh>
+            <uri>model://mi_smart_tv/meshes/mi_smart_tv.dae</uri>
+            <scale>0.1 0.1 0.1</scale>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual>
+        <geometry>
+          <mesh>
+            <uri>model://mi_smart_tv/meshes/mi_smart_tv.dae</uri>
+            <scale>0.1 0.1 0.1</scale>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+</sdf>

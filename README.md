@@ -7,7 +7,7 @@ An autonomous indoor mobile robot built using ROS2, Gazebo, YOLOv8, and Nav2 for
 ## Features
 
 - Differential drive mobile robot built from scratch in ROS2
-- Gazebo simulation environment
+- Custom built gazebo simulation environment
 - SLAM-based environment mapping
 - Real-time object detection using YOLOv8
 - Semantic inventory mapping with object coordinates
@@ -35,6 +35,8 @@ An autonomous indoor mobile robot built using ROS2, Gazebo, YOLOv8, and Nav2 for
 ## System Architecture
 
 ```text
+Custom built Gazebo environment
+    ↓
 Camera Feed
     ↓
 YOLOv8 Object Detection
@@ -55,7 +57,7 @@ Autonomous Navigation
 ### Completed
 
 - Custom differential drive robot
-- Gazebo showroom environment
+- Custom built gazebo showroom environment
 - Camera + LiDAR integration
 - SLAM mapping
 - YOLOv8 semantic detection

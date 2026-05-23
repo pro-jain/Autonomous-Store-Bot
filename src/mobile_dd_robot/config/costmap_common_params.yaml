@@ -1,0 +1,20 @@
+# Common costmap parameters for global and local costmaps
+obstacle_layer:
+  plugin: "nav2_costmap_2d::ObstacleLayer"
+  enabled: true
+  observation_sources: scan
+  scan:
+    topic: /scan
+    max_obstacle_height: 2.0
+    clearing: true
+    marking: true
+    data_type: "LaserScan"
+
+inflation_layer:
+  plugin: "nav2_costmap_2d::InflationLayer"
+  cost_scaling_factor: 10.0
+  inflation_radius: 0.55
+
+static_layer:
+  plugin: "nav2_costmap_2d::StaticLayer"
+  map_subscribe_transient_local: true

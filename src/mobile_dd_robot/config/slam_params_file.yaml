@@ -1,0 +1,6 @@
+# Config file for semantic detector
+semantic_detector:
+  confidence_threshold: 0.30
+  distance_threshold: 1.0
+  min_detections: 2
+  target_objects: ['tv', 'laptop', 'cell phone', 'microwave']
